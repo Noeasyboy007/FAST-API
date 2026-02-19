@@ -45,3 +45,21 @@ def get_product_by_id(product_id: int):
 def create_product(product: Product):
     products.append(product)
     return {"message": "Product created successfully"}
+
+
+@app.put("/products/{product_id}")
+def update_product(product_id: int, product: Product):
+    for i, p in enumerate(products):
+        if p.id == product_id:
+            products[i] = product
+            return {"message": "Product updated successfully", "product": product}
+    return {"error": "Product not found"}
+
+
+@app.delete("/products/{product_id}")
+def delete_product(product_id: int):
+    for i, p in enumerate(products):
+        if p.id == product_id:
+            del products[i]
+            return {"message": "Product deleted successfully"}
+    return {"error": "Product not found"}
